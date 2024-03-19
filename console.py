@@ -18,9 +18,21 @@ def parse_key_value(args):
     for s in args:
         if '=' not in s:
             continue
-        key = ""
-        value = ""
-
+        elif "=" in s:
+            keytemp = s.split("=",1)
+            key = keytemp[0]
+            value = keytemp[1]
+        if value[0] == value[-1] and value[0] in ['"', "'"]:
+            value = value[1:-1]
+        else:
+            try:
+                value = int(value)
+            except:
+                try:
+                    value = float(value)
+                except:
+                    pass
+        
         """ you have string find key and value """
 
         res[key] = value
