@@ -13,6 +13,9 @@ from models.review import Review
 
 
 def configKey(s=""):
+    for i in range(len(s)):
+        if s[i] == "_":
+            s[i] = " "
     if s[0] == s[-1] and s[0] in ['"', "'"]:
                 s = s[1:-1]
     else:
@@ -133,7 +136,8 @@ class HBNBCommand(cmd.Cmd):
         for s in args:
             if '=' not in s:
                 continue
-            
+            if s.count('=') > 1:
+                continue
             keytemp = s.split("=",1)
             key = configKey(keytemp[0])
             value = configKey(keytemp[1])
