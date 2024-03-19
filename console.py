@@ -25,21 +25,6 @@ def configKey(s=""):
                 pass
     return (s)
 
-def parse_key_value(args):
-    res = {}
-
-    for s in args:
-        if '=' not in s:
-            continue
-        
-        keytemp = s.split("=",1)
-        key = configKey(keytemp[0])
-        value = configKey(keytemp[1])
-
-        res[key] = value
-
-    return (res)
-
 
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
@@ -142,6 +127,21 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
+    def parse_key_value(self, args):
+        res = {}
+
+        for s in args:
+            if '=' not in s:
+                continue
+            
+            keytemp = s.split("=",1)
+            key = configKey(keytemp[0])
+            value = configKey(keytemp[1])
+
+            res[key] = value
+
+        return (res)
+
     def do_create(self, args):
         """ Create an object of any class"""
         args = args.split()
@@ -152,7 +152,7 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        parms = parse_key_value(args[1:])
+        parms = self.parse_key_value(args[1:])
         new_instance = HBNBCommand.classes[args[0]](**parms)
         storage.save()
         print(new_instance.id)
