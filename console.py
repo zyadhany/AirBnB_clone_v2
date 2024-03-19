@@ -12,28 +12,29 @@ from models.amenity import Amenity
 from models.review import Review
 
 
+def configKey(s=""):
+    if s[0] == s[-1] and s[0] in ['"', "'"]:
+                s = s[1:-1]
+            else:
+                try:
+                    s = int(s)
+                except:
+                    try:
+                        s = float(s)
+                    except:
+                        pass
+    return (s)
+
 def parse_key_value(args):
     res = {}
 
     for s in args:
         if '=' not in s:
             continue
-        elif "=" in s:
-            keytemp = s.split("=",1)
-            key = keytemp[0]
-            value = keytemp[1]
-        if value[0] == value[-1] and value[0] in ['"', "'"]:
-            value = value[1:-1]
-        else:
-            try:
-                value = int(value)
-            except:
-                try:
-                    value = float(value)
-                except:
-                    pass
         
-        """ you have string find key and value """
+        keytemp = s.split("=",1)
+        key = configKey(keytemp[0])
+        value = configKey(keytemp[1])
 
         res[key] = value
 
