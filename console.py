@@ -15,14 +15,14 @@ from models.review import Review
 def configKey(s=""):
     if s[0] == s[-1] and s[0] in ['"', "'"]:
                 s = s[1:-1]
-            else:
-                try:
-                    s = int(s)
-                except:
-                    try:
-                        s = float(s)
-                    except:
-                        pass
+    else:
+        try:
+            s = int(s)
+        except:
+            try:
+                s = float(s)
+            except:
+                pass
     return (s)
 
 def parse_key_value(args):
