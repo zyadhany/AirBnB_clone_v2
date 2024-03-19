@@ -11,10 +11,22 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+
 def parse_key_value(args):
     res = {}
 
+    for s in args:
+        if '=' not in s:
+            continue
+        key = ""
+        value = ""
+
+        """ you have string find key and value """
+
+        res[key] = value
+
     return (res)
+
 
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
@@ -77,7 +89,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] == '{' and pline[-1] =='}'\
+                    if pline[0] == '{' and pline[-1] == '}'\
                             and type(eval(pline)) == dict:
                         _args = pline
                     else:
@@ -128,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         parms = parse_key_value(args[1:])
-        new_instance = HBNBCommand.classes[args[0]]()
+        new_instance = HBNBCommand.classes[args[0]](**parms)
         storage.save()
         print(new_instance.id)
         storage.save()
@@ -194,7 +206,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
