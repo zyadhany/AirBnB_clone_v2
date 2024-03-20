@@ -20,7 +20,7 @@ classes = {
             'Review': Review
             }
 classes = {
-            'State': State, 'City': City
+            'State': State, 'City': City, 'User': User
             }
 
 
