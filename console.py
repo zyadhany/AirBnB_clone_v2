@@ -160,7 +160,6 @@ class HBNBCommand(cmd.Cmd):
 
         parms = self.parse_key_value(args[1:])
         new_instance = HBNBCommand.classes[args[0]](**parms)
-        storage.save()
         print(new_instance.id)
         new_instance.save()
 
@@ -241,14 +240,14 @@ class HBNBCommand(cmd.Cmd):
 
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
+            if args not in self.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all(self.classes[args]).items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
