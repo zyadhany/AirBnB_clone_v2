@@ -19,6 +19,9 @@ classes = {
             'State': State, 'City': City, 'Amenity': Amenity,
             'Review': Review
             }
+classes = {
+            'State': State, 'City': City
+            }
 
 
 class DBStorage:
