@@ -14,9 +14,7 @@ from models.review import Review
 
 def configKey(s=""):
     """ config string """
-    for i in range(len(s)):
-        if s[i] == "_":
-            s[i] = " "
+    s = s.replace("_", " ")
     if s[0] == s[-1] and s[0] in ['"', "'"]:
         s = s[1:-1]
     else:
@@ -142,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
             if s.count('=') > 1:
                 continue
             keytemp = s.split("=", 1)
-            key = configKey(keytemp[0])
+            key = keytemp[0]
             value = configKey(keytemp[1])
 
             res[key] = value
@@ -245,7 +243,8 @@ class HBNBCommand(cmd.Cmd):
             if args not in self.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in models.storage.all(self.classes[args]).items():
+            opjs = models.storage.all(args)
+            for k, v in opjs.items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
