@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This module to make dp storage"""
 
-import json
+import models
 from models.base_model import BaseModel, Base
 from models.user import User
 from models.place import Place
@@ -77,4 +77,4 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         Session = sessionmaker(expire_on_commit=False,
                                bind=self.__engine)
-        self.__session = scoped_session(Session)
+        self.__session = scoped_session(Session)()
