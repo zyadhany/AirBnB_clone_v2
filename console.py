@@ -13,6 +13,7 @@ from models.review import Review
 
 
 def configKey(s=""):
+    """ config string """
     for i in range(len(s)):
         if s[i] == "_":
             s[i] = " "
@@ -132,6 +133,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def parse_key_value(self, args):
+        """ parse args """
         res = {}
 
         for s in args:
