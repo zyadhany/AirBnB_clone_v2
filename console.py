@@ -17,15 +17,16 @@ def configKey(s=""):
         if s[i] == "_":
             s[i] = " "
     if s[0] == s[-1] and s[0] in ['"', "'"]:
-                s = s[1:-1]
+        s = s[1:-1]
     else:
         try:
             s = int(s)
-        except:
+        except ValueError:
             try:
                 s = float(s)
-            except:
+            except ValueError:
                 pass
+
     return (s)
 
 
@@ -138,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
                 continue
             if s.count('=') > 1:
                 continue
-            keytemp = s.split("=",1)
+            keytemp = s.split("=", 1)
             key = configKey(keytemp[0])
             value = configKey(keytemp[1])
 
