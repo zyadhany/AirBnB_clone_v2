@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ City Module for HBNB project """
 from models.base_model import BaseModel, Base
+import models
 import sqlalchemy
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
@@ -12,3 +13,15 @@ class City(BaseModel, Base):
     name = Column(String(128), nullable=False)
     state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
     places = relationship("Place",  backref="cities", cascade="delete")
+
+    if models.storage_t != 'db':
+        @property
+        def reviews(self):
+            ''' get list of cities related to State '''
+            res = []
+
+            reviews = models.storage.all('Review')
+            for rev in reviews.values():
+                if rev.state_id == self.id:
+                    res.append(rev)
+            return (res)
