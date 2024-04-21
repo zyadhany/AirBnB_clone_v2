@@ -49,7 +49,7 @@ class DBStorage:
 
     def close(self):
         """ deserializing the JSON file to objects """
-        self.__session.close()
+        self.__session.remove()
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
@@ -81,4 +81,4 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         Session = sessionmaker(expire_on_commit=False,
                                bind=self.__engine)
-        self.__session = scoped_session(Session)()
+        self.__session = scoped_session(Session)
