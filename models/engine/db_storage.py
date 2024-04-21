@@ -49,7 +49,7 @@ class DBStorage:
 
     def close(self):
         """ deserializing the JSON file to objects """
-        self.__session.remove()
+        self.__session.close()
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
