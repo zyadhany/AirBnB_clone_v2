@@ -49,7 +49,7 @@ class DBStorage:
 
     def close(self):
         """ deserializing the JSON file to objects """
-        self.__session.close()
+        self.__session.remove()
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
@@ -80,6 +80,6 @@ class DBStorage:
         """Loads storage dictionary from file"""
         Base.metadata.create_all(self.__engine)
         ses = sessionmaker(expire_on_commit=False,
-                               bind=self.__engine)
-        Session = scoped_session(Session)
-        self.__session = Session()
+                           bind=self.__engine)
+        Session = scoped_session(ses)
+        self.__session = Session
