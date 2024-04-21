@@ -79,6 +79,7 @@ class DBStorage:
     def reload(self):
         """Loads storage dictionary from file"""
         Base.metadata.create_all(self.__engine)
-        Session = sessionmaker(expire_on_commit=False,
+        ses = sessionmaker(expire_on_commit=False,
                                bind=self.__engine)
-        self.__session = scoped_session(Session)
+        Session = scoped_session(Session)
+        self.__session = Session
